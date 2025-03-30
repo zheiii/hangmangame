@@ -38,10 +38,11 @@ function updateGameView(guessedLetter) {
 
   // show the guesses left field
   guessCountField.style.display = "block";
-  guessCountField.textContent = `Guesses left: ${lives}`;
+
   if (!guessedLetter || guessedLetters.has(guessedLetter)) {
     clearInputField();
     updateErrorMessage("Please enter a valid letter.");
+    guessCountField.textContent = `Guesses left: ${lives}`;
     return;
   }
   guessedLetters.add(guessedLetter);
@@ -50,10 +51,11 @@ function updateGameView(guessedLetter) {
     updateOutput(guessedLetter);
   } else {
     lives--;
-
+    console.log(lives-1)
     updateErrorMessage(
       `Incorrect guess! The letter "${guessedLetter}" is not in the word.`
     );
+    guessCountField.textContent = `Guesses left: ${lives}`;
 
     if (lives === 0) {
       alert("Game over! The word was: " + secretWord);
@@ -96,9 +98,6 @@ function registerEventListeners() {
   submitLetterButton.addEventListener("click", (event) => {
     event.preventDefault();
     let guessedLetter = inputField.value.toLowerCase();
-
-    console.log("Guessed letter: ", guessedLetter);
-
     updateGameView(guessedLetter);
   });
 }
